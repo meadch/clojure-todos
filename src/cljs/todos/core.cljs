@@ -1,6 +1,7 @@
 (ns todos.core
   (:require
-   [todos.login-page :as login]
+   [todos.login :as login]
+   [todos.dashboard :as dashboard]
    [reagent.dom :as rdom]
    [reagent.session :as session]
    [reitit.frontend :as reitit]
@@ -12,23 +13,7 @@
 (def router
   (reitit/router
    [["/" :index]
-    ["/todos" :todos]]))
-
-(defn path-for [route & [params]]
-  (if params
-    (:path (reitit/match-by-name router route params))
-    (:path (reitit/match-by-name router route))))
-
-;; -------------------------
-;; Page components
-(defn items-page []
-  (fn []
-    [:span.main
-     [:h1 "Dashboard"]
-     [:ul (map (fn [item-id]
-                 [:li {:name (str "item-" item-id) :key (str "item-" item-id)}
-                  [:a {:href (path-for :item {:item-id item-id})} "Item: " item-id]])
-               (range 1 60))]]))
+    ["/dashboard/:email" :dashboard]]))
 
 ;; -------------------------
 ;; Translate routes -> page components
@@ -36,13 +21,13 @@
 (defn page-for [route]
   (case route
     :index #'login/component
-    :todos #'items-page))
+    :dashboard #'dashboard/component))
 
 ;; -------------------------
 ;; Page mounting component
 (defn current-page []
   (fn []
-    (let [page (:current-page (session/get :route))] [page])))
+    (let [page (session/get :current-page)] [page])))
 
 ;; -------------------------
 ;; Initialize app
@@ -55,8 +40,10 @@
    {:nav-handler
     (fn [path]
       (let [match (reitit/match-by-path router path)
-            current-page (:name (:data  match))]
-        (session/put! :route {:current-page (page-for current-page)})))
+            current-page (:name (:data  match))
+            email (:email (:path-params match))]
+        (session/put! :current-page (page-for current-page))
+        (session/put! :email email)))
     :path-exists?
     (fn [path]
       (boolean (reitit/match-by-path router path)))})
