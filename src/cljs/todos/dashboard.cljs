@@ -1,15 +1,12 @@
 (ns todos.dashboard
-  (:require [reagent.session :as session]
-            [todos.state]
+  (:require [todos.state]
             [todos.api]
             [todos.items]
             [todos.line-chart]
             [todos.pie-chart]))
 
-(reagent.session/get :email)
-
 (defn component []
-  (todos.api/fetch-todos (reagent.session/get :email))
+  (todos.api/fetch-todos)
   (fn []
     [:div
      [:section#analytics

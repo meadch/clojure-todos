@@ -28,11 +28,14 @@
    :headers {"Content-Type" "text/html"}
    :body (loading-page)})
 
-(defn create-todo [_req] {:status 200 :body "Todo created!"})
+(defn create-todo [req] 
+  (let [email (:email (:body-params req))
+        new-item (todos.db/add-item email (:item (:body-params req)))]
+    {:status 200 
+   :body new-item}))
 
 (defn fetch-todos [req] 
-  {
-   :status 200 
+  {:status 200 
    :body (todos.db/get-items-by-email (get (:query-params req) "email"))})
 
 (def router-config
