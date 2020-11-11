@@ -1,6 +1,5 @@
-(ns todos.login-page
+(ns todos.login
   (:require
-   [todos.api :as api]
    [reagent.core :as r]
    [accountant.core :as accountant]))
 
@@ -18,7 +17,7 @@
          [:h1 "Login"]
          [login-input val]
          [:input {:type "button" :value "Login"
-                  :on-click #(api/login! @val
-                                         (fn []
-                                           (reset! val "")
-                                           (accountant/navigate! "/todos")))}]]))))
+                  :on-click (fn []
+                              (let [email @val]
+                                (reset! val "")
+                                (accountant/navigate! (str "/dashboard/" email))))}]]))))
