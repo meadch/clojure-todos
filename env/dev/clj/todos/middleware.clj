@@ -7,6 +7,6 @@
    [ring.middleware.defaults :refer [site-defaults wrap-defaults]]))
 
 (def middleware
-  [#(wrap-defaults % site-defaults)
+  [#(wrap-defaults % (assoc-in site-defaults [:security :anti-forgery] false))
    wrap-exceptions
    wrap-reload])

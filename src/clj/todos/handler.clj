@@ -25,10 +25,18 @@
    :headers {"Content-Type" "text/html"}
    :body (loading-page)})
 
+(defn create-todo [_req] {:status 200 :body "Todo created!"})
+(defn login [_req] {:status 200 :body "Logged in!"})
+
 (def app
   (reitit-ring/ring-handler
    (reitit-ring/router
     [["/" {:get {:handler index-handler}}]
-     ["/todos" {:get {:handler index-handler}}]])
-   (reitit-ring/routes)
+     ["/todos" {:get {:handler index-handler}}]
+     ["/api"
+      ["/todos" {:post {:handler create-todo}}]
+      ["/login" {:post {:handler login}}]]
+     ])
+   (reitit-ring/routes
+    (reitit-ring/create-resource-handler {:path "/" :root "/public"}))
    {:middleware middleware}))

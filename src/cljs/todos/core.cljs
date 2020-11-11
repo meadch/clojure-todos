@@ -1,13 +1,13 @@
 (ns todos.core
   (:require
-   [reagent.core :as reagent :refer [atom]]
+   [todos.login-page :as login]
    [reagent.dom :as rdom]
    [reagent.session :as session]
    [reitit.frontend :as reitit]
    [accountant.core :as accountant]))
 
 ;; -------------------------
-;; Routes
+;; Route
 
 (def router
   (reitit/router
@@ -21,13 +21,6 @@
 
 ;; -------------------------
 ;; Page components
-
-(defn home-page []
-  (fn []
-    [:span.main
-     [:h1 "Login"]]))
-
-
 (defn items-page []
   (fn []
     [:span.main
@@ -42,12 +35,11 @@
 
 (defn page-for [route]
   (case route
-    :index #'home-page
+    :index #'login/component
     :todos #'items-page))
 
 ;; -------------------------
 ;; Page mounting component
-
 (defn current-page []
   (fn []
     (let [page (:current-page (session/get :route))] [page])))
