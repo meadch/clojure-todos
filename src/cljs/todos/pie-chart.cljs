@@ -2,5 +2,5 @@
 
 (defn component []
   (fn []
-    [:div.pie-chart
+    [:div.pie-chart.chart
      [:h1 "Pie Chart"]]))

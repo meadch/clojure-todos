@@ -9,6 +9,36 @@
   line-height: 1.5em;
 }
 
+#dashboard {
+  display: grid;
+  grid-template-rows: 250px auto;
+  grid-row-gap: 5em;
+}
+
+#analytics {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-column-gap: 1em;
+}
+
+div.chart, div#items {
+  border: #333 1px solid;
+}
+
+li.item {
+  list-style: none;
+  display: grid;
+  grid-template-columns: 1fr 9fr 1fr;
+  align-items: center;
+}
+
+#todo-list {
+  height: 250px;
+  overflow: hidden;
+  overflow-y: scroll;
+}
+
+
 h1, h2, h3 {
   color: #000;
 }

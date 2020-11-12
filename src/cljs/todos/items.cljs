@@ -22,13 +22,12 @@
                                nil)}])))
 
 (defn todo-item [{:keys [concluded-at text on-toggle on-destroy]}]
-    [:li
-     [:div
+    [:li.item
       [:input.toggle {:type "checkbox" 
                       :checked (boolean concluded-at)
                       :on-change on-toggle}]
       [:label text]
-      [:button.destroy {:on-click on-destroy}]]])
+      [:button.destroy.glyphicon {:on-click on-destroy} "X"]])
 
 (defn component []
  (let [creating-todo (r/atom false)] 

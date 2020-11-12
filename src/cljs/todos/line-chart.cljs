@@ -47,7 +47,7 @@
 
 (defn component []
   (fn []
-    [:div#line-chart
+    [:div#line-chart.chart
      [:h2 "Line Chart"]
      [:> rvis/XYPlot
       {:width 250 :height 225}

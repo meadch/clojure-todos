@@ -8,7 +8,7 @@
 (defn component []
   (todos.api/fetch-todos)
   (fn []
-    [:div
+    [:div#dashboard
      [:section#analytics
       [todos.pie-chart/component {:items @todos.state/items }]
       [todos.line-chart/component {:items @todos.state/items }]]
