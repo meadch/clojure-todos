@@ -21,17 +21,32 @@
                                27 (stop)
                                nil)}])))
 
+(defn todo-item [{:keys [concluded-at text on-toggle on-destroy]}]
+    [:li
+     [:div
+      [:input.toggle {:type "checkbox" 
+                      :checked (boolean concluded-at)
+                      :on-change on-toggle}]
+      [:label text]
+      [:button.destroy {:on-click on-destroy}]]])
+
 (defn component []
  (let [creating-todo (r/atom false)] 
    (fn []
-    [:div.items
+    [:div#items
      [:header
-      [:h1 "Todo Items"]
+      [:h2 "Todo Items"]
       (if @creating-todo
         [new-todo {:on-stop #(reset! creating-todo false)
                    :on-save api/create-todo!}] 
-        [:input {:type "submit" :value "Add item"
+        [:input {:type "submit" 
+                 :value "Add item"
                  :on-click #(reset! creating-todo true)}])]
      [:ul#todo-list
-      (for [todo @todos.state/items]
-        ^{:key (:id todo)} [:p (:text todo)])]])))
+      (for [todo @todos.state/items] 
+        [todo-item {
+          :key (:id todo)
+          :text (:text todo)
+          :concluded-at (:concluded-at todo)
+          :on-toggle #(api/toggle-concluded (:id todo))
+          :on-destroy #(api/destroy-item (:id todo))}])]])))

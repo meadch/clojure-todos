@@ -34,6 +34,16 @@
     {:status 200 
    :body new-item}))
 
+(defn update-todo [req]
+  (let [id (:id (:body-params req))
+        updated-item (todos.db/update-item id (:item (:body-params req)))]
+    {:status 200
+     :body updated-item}))
+
+(defn delete-todo [req]
+  (todos.db/delete-item (:id (:body-params req)))
+  {:status 201})
+
 (defn fetch-todos [req] 
   {:status 200 
    :body (todos.db/get-items-by-email (get (:query-params req) "email"))})
@@ -49,7 +59,7 @@
     [["/" {:get {:handler index-handler}}]
      ["/dashboard/:email" {:get {:handler index-handler}}]
      ["/api"
-      ["/todos" {:post {:handler create-todo} :get {:handler fetch-todos}}]]
+      ["/todos" {:post {:handler create-todo} :get {:handler fetch-todos} :put {:handler update-todo} :delete {:handler delete-todo}}]]
      ]
     router-config)
    (reitit-ring/routes
