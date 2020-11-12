@@ -9,6 +9,7 @@
                  [cljs-ajax "0.7.5"]
                  [reagent "0.10.0"]
                  [reagent-utils "0.3.3"]
+                 [cljsjs/react-vis "1.11.1-0"]
                  [ring "1.8.1"]
                  [ring/ring-defaults "0.3.2"]
                  [hiccup "1.0.5"]
