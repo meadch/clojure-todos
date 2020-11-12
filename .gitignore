@@ -15,4 +15,3 @@ pom.xml.asc
 /.sass-cache
 /node_modules
 .calva/
-site.min.css
