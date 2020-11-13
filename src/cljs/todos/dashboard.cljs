@@ -3,12 +3,14 @@
             [todos.api]
             [todos.items]
             [todos.line-chart]
-            [todos.pie-chart]))
+            [todos.pie-chart]
+            [accountant.core :as accountant]))
 
 (defn component []
   (todos.api/fetch-todos)
   (fn []
     [:div#dashboard
+     [:header#menu [:button#logout {:on-click #(accountant/navigate! "/")} "Log out"]]
      [:section#analytics
       [todos.pie-chart/component {:items @todos.state/items }]
       [todos.line-chart/component {:items @todos.state/items }]]
