@@ -34,7 +34,7 @@
    (fn []
     [:div#items
      [:header
-      [:h2 "Todo Items"]
+      [:h4 "Todo Items"]
       (if @creating-todo
         [new-todo {:on-stop #(reset! creating-todo false)
                    :on-save api/create-todo!}] 
@@ -42,7 +42,7 @@
                  :value "Add item"
                  :on-click #(reset! creating-todo true)}])]
      [:ul#todo-list
-      (for [todo @todos.state/items] 
+      (for [todo (sort-by :created-at #(compare %2 %1) @todos.state/items)] 
         [todo-item {
           :key (:id todo)
           :text (:text todo)
