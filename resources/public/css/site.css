@@ -45,6 +45,7 @@ button:hover {
 
 #login input {
   text-align: center;
+  margin: 10px;
 }
 
 #dashboard {
