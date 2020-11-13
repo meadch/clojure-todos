@@ -28,7 +28,7 @@
                       :checked (boolean concluded-at)
                       :on-change on-toggle}]
       [:label text]
-      [:button.destroy {:on-click on-destroy} "X"]])
+      [:button.destroy {:on-click on-destroy} [:i.fa.fa-trash]]])
 
 (defn component []
  (let [creating-todo (r/atom false)] 
