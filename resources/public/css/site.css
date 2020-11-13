@@ -56,8 +56,20 @@ button:hover {
 
 #analytics {
   display: grid;
-  grid-template-columns: 1fr 1fr;
   grid-column-gap: 1em;
+  grid-row-gap: 1em;
+}
+
+.chart {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+@media (min-width: 700px) {
+  #analytics {
+    grid-template-columns: 1fr 1fr;
+  }
 }
 
 #items header {
