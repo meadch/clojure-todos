@@ -39,7 +39,7 @@
       (if @creating-todo
         [new-todo {:on-stop #(reset! creating-todo false)
                    :on-save api/create-todo!}] 
-        [:button {:on-click #(reset! creating-todo true)} "Add item"])]
+        [:button.new {:on-click #(reset! creating-todo true)} [:i.fa.fa-plus] "Add item"])]
      [:ul#todo-list
       (for [todo (sort-by :created-at #(compare %2 %1) @todos.state/items)] 
         [todo-item {

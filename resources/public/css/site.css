@@ -19,6 +19,7 @@ button {
   color: rgb(79, 171, 201);
   justify-content: center;
   padding: 5px 10px;
+  align-items: center;
 }
 
 button:hover {
@@ -85,6 +86,10 @@ button:hover {
 
 #items input.new:focus {
   outline: 0;
+}
+
+button.new i {
+  padding: 0 4px 0 0;
 }
 
 li.item {
