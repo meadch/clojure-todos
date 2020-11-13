@@ -1,13 +1,14 @@
 (ns todos.login
   (:require
    [reagent.core :as r]
-   [accountant.core :as accountant]))
+   [accountant.core :as accountant]
+   [clojure.string]))
 
 (defn login-input [value]
   [:input {:type "text"
            :value @value
            :placeholder "email address"
-           :on-change #(reset! value (-> % .-target .-value))}])
+           :on-change #(reset! value (-> % .-target .-value clojure.string/trim))}])
 
 (defn component []
   (fn []
@@ -17,5 +18,7 @@
          [login-input val]
          [:button { :on-click (fn []
                               (let [email @val]
-                                (reset! val "")
-                                (accountant/navigate! (str "/dashboard/" email))))} "Login" ]]))))
+                                (if-not (clojure.string/blank? email)
+                                  (do
+                                    (reset! val "")
+                                    (accountant/navigate! (str "/dashboard/" email))))))} "Login" ]]))))
