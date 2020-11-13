@@ -39,7 +39,7 @@
     [:div#line-chart.chart.card
      [:h4 "Unfinished tasks over time"]
      (let [parsed-items (parse-items @todos.state/items)
-           items (if (empty? parsed-items) [{:x 0 :y 0}] parsed-items)] 
+           items (if (empty? parsed-items) [{:x 0 :y 0}] (conj parsed-items (merge (first parsed-items) { :y 0 })))] 
          [:> rvis/XYPlot
           {:width 400 :height 250 :margin {:left 50 :right 50}}
           [:> rvis/YAxis
@@ -57,6 +57,6 @@
             :tickSizeOuter 3
             :style axis-style}]
           [:> rvis/LineMarkSeries
-           {:data (map #(assoc % :x (js/Date. (:x %))) items) ;(conj items (merge (first items) {:y 0}))
+           {:data items
             :color "#e47320"
             :style {:fill "none"}}]])]))
