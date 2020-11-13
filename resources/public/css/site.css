@@ -1,12 +1,51 @@
 .body-container {
   font-family: 'Helvetica Neue', Verdana, Helvetica, Arial, sans-serif;
-  max-width: 640px;
+  max-width: 1200px;
   margin: 0 auto;
   padding-top: 72px;
-  -webkit-font-smoothing: antialiased;
   font-size: 1.125em;
   color: #333;
   line-height: 1.5em;
+  display: flex;
+  justify-content: center;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+}
+
+/* Login */
+
+#login {
+  border: 1px solid black;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  width: 300px;
+}
+
+#login button {
+  margin: 15px;
+  display: flex;
+  background-color: white;
+  border-radius: 4px;
+  border: 1px solid rgb(79, 171, 201);
+  color: rgb(79, 171, 201);
+  justify-content: center;
+  padding: 5px 10px;
+}
+
+#login button:hover {
+  background-color: rgb(79, 171, 201);;
+  border: none;
+  color: white;
+}
+
+#login input {
+  text-align: center;
 }
 
 #dashboard {
@@ -21,7 +60,7 @@
   grid-column-gap: 1em;
 }
 
-div.card {
+.card {
   border-radius: 3px;
   box-shadow: 0 0 0 1px rgba(16,22,26,0.1), 0 1px 1px rgba(16,22,26,0.2), 0 2px 6px rgba(16,22,26,0.2);
   padding: 12px;
@@ -38,11 +77,6 @@ li.item {
   height: 250px;
   overflow: hidden;
   overflow-y: scroll;
-}
-
-button {
-  cursor: pointer;
-  border: none;
 }
 
 button.destroy {
