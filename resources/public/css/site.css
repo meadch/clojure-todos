@@ -89,21 +89,29 @@ button:hover {
 
 li.item {
   list-style: none;
-  display: grid;
-  grid-template-columns: 1fr 9fr 1fr;
+  display: flex;
   align-items: center;
+  box-shadow: 0 -1px 0 0 rgba(16,22,26,0.1);
+  margin: 10px;
+  padding: 10px 0px;
+}
+
+li.item .toggle {
+  margin-right: 10px;
 }
 
 #todo-list {
   height: 250px;
   overflow: hidden;
   overflow-y: scroll;
+  padding-inline-start: 0;
 }
 
 button.destroy {
   background-color: white;
   color: red;
   border: none;
+  margin-left: auto;
 }
 
 button.destroy:hover {
