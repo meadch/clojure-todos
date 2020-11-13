@@ -18,13 +18,12 @@
                           {:x (:time item) :y (:unfinished item)}))
                          
 (defn parse-items [items]
-  (let [parsed (->> items
-                    (mapcat split-into-events)
-                    (sort-by :time)
-                    (reduce with-unfinished-reducer {:unfinished 0 :data []})
-                    (:data)
-                    (map map-to-coordinates))]
-    (if (empty? parsed) parsed (conj parsed (merge (first parsed) { :y 0 }))))) ; prepend duplicate w/ 0 uncomplete
+  (->> items
+      (mapcat split-into-events)
+      (sort-by :time)
+      (reduce with-unfinished-reducer {:unfinished 0 :data []})
+      (:data)
+      (map map-to-coordinates)))
 
 (def axis-style {
                  :line {:stroke "#333"}
@@ -39,8 +38,8 @@
   (fn []
     [:div#line-chart.chart.card
      [:h4 "Unfinished tasks over time"]
-     (let [items (parse-items @todos.state/items)]
-       (if-not (empty? items) 
+     (let [parsed-items (parse-items @todos.state/items)
+           items (if (empty? parsed-items) [{:x 0 :y 0}] parsed-items)] 
          [:> rvis/XYPlot
           {:width 400 :height 250 :margin {:left 50 :right 50}}
           [:> rvis/YAxis
@@ -51,7 +50,7 @@
             :style axis-style}]
           [:> rvis/XAxis
            {
-            :xDomain (map :x [(first items) (last items)])
+            :tickValues (map :x items)
             :tickFormat (fn [x] (if (zero? x) "" (.toLocaleDateString (js/Date. x))))
             :tickLabelAngle -20
             :tickSizeInner 0
@@ -60,4 +59,4 @@
           [:> rvis/LineMarkSeries
            {:data (map #(assoc % :x (js/Date. (:x %))) items) ;(conj items (merge (first items) {:y 0}))
             :color "#e47320"
-            :style {:fill "none"}}]]))]))
+            :style {:fill "none"}}]])]))

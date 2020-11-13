@@ -15,4 +15,4 @@
              unconcluded-count (- (count @items) concluded-count)]
          [
         {:angle concluded-count :label (if (zero? concluded-count) "" "Complete")} 
-        {:angle (if (zero? unconcluded-count) 360 unconcluded-count) :label (if (zero? unconcluded-count) "" "Incomplete")}])}]]))
+        {:angle unconcluded-count :label (if (zero? unconcluded-count) "" "Incomplete")}])}]]))
