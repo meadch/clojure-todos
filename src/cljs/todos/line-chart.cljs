@@ -37,7 +37,7 @@
 
 (defn component []
   (fn []
-    [:div#line-chart.chart
+    [:div#line-chart.chart.card
      [:h4 "Unfinished tasks over time"]
      (let [items (parse-items @todos.state/items)]
        (if-not (empty? items) 

@@ -32,7 +32,7 @@
 (defn component []
  (let [creating-todo (r/atom false)] 
    (fn []
-    [:div#items
+    [:div#items.card
      [:header
       [:h4 "Todo Items"]
       (if @creating-todo

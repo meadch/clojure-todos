@@ -11,8 +11,8 @@
 
 #dashboard {
   display: grid;
-  grid-template-rows: 250px auto;
-  grid-row-gap: 5em;
+  grid-template-rows: auto auto 500px;
+  grid-row-gap: 1em;
 }
 
 #analytics {
@@ -21,8 +21,10 @@
   grid-column-gap: 1em;
 }
 
-div.chart, div#items {
-  border: #333 1px solid;
+div.card {
+  border-radius: 3px;
+  box-shadow: 0 0 0 1px rgba(16,22,26,0.1), 0 1px 1px rgba(16,22,26,0.2), 0 2px 6px rgba(16,22,26,0.2);
+  padding: 12px;
 }
 
 li.item {
