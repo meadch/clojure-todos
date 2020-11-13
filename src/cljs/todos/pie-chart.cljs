@@ -7,12 +7,12 @@
    (fn []
     [:div#line-chart.chart.card
      [:h4 "Complete vs. incomplete tasks"]
-     (if-not (empty? @items) [:> rvis/RadialChart 
-      {:width 250 :height 225 :showLabels true
+     [:> rvis/RadialChart 
+      {:width 250 :height 225 :showLabels true :labelsStyle { :font-size 10 }
        :data 
        (let [
              concluded-count (-> (filter :concluded-at @items) count)
              unconcluded-count (- (count @items) concluded-count)]
          [
-        {:angle concluded-count :label "Complete"} 
-        {:angle unconcluded-count :label "Incomplete"}])}])]))
+        {:angle concluded-count :label (if (zero? concluded-count) "" "Complete")} 
+        {:angle (if (zero? unconcluded-count) 360 unconcluded-count) :label (if (zero? unconcluded-count) "" "Incomplete")}])}]]))
