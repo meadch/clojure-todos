@@ -5,6 +5,7 @@
             :url "http://www.eclipse.org/legal/epl-v10.html"}
 
   :dependencies [[org.clojure/clojure "1.10.1"]
+                 [clj-time "0.15.2"]
                  [ring-server "0.5.0"]
                  [cljs-ajax "0.7.5"]
                  [reagent "0.10.0"]
