@@ -1,18 +1,19 @@
 (ns todos.items
   (:require [todos.state]
             [todos.api :as api]
-            [reagent.core :as r]))
+            [reagent.core :as r]
+            [clojure.string]))
 
 (defn new-todo [{:keys [title on-save on-stop]}]
   (let [val (r/atom title)
         stop #(do (reset! val "")
                   (if on-stop (on-stop)))
-        save #(let [v (-> @val str)]
+        save #(let [v (-> @val str clojure.string/trim)]
                 (if-not (empty? v) (on-save v))
                 (stop))]
-    (fn [{:keys [id class placeholder]}]
-      [:input {:type "text" :value @val
-               :id id :class class :placeholder placeholder
+    (fn []
+      [:input.new {:type "text" :value @val
+               :placeholder "What needs to be done?"
                :auto-focus true
                :on-blur save
                :on-change #(reset! val (-> % .-target .-value))
@@ -34,13 +35,11 @@
    (fn []
     [:div#items.card
      [:header
-      [:h4 "Todo Items"]
+      [:h4 "To-Do Items:"]
       (if @creating-todo
         [new-todo {:on-stop #(reset! creating-todo false)
                    :on-save api/create-todo!}] 
-        [:input {:type "submit" 
-                 :value "Add item"
-                 :on-click #(reset! creating-todo true)}])]
+        [:button {:on-click #(reset! creating-todo true)} "Add item"])]
      [:ul#todo-list
       (for [todo (sort-by :created-at #(compare %2 %1) @todos.state/items)] 
         [todo-item {
