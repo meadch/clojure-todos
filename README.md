@@ -10,3 +10,9 @@ This is the todos project.
 ```
 
 The application will now be available at [http://localhost:3000](http://localhost:3000)
+
+## Running in development mode
+
+```
+> lein run dev
+```
